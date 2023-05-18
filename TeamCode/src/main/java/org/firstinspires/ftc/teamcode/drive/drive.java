@@ -72,7 +72,8 @@ public class drive extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         Pose2d startPose = new Pose2d(0, 0, Math.toRadians(0));
 
-
+    DcMotorEx intake;
+    intake = hardwareMap.get(DcMotorEx.class, "intakeMotor");
 
 
         while (!isStarted() && !isStopRequested()) {
@@ -86,9 +87,19 @@ public class drive extends LinearOpMode {
 
 
             TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
+                    //move to positions 1-3
                     .forward(x1)
                     .lineToLinearHeading(new Pose2d(x2, y2, Math.toRadians(heading2)))
                     .lineToSplineHeading(new Pose2d(x3, y3, Math.toRadians(heading3)))
+                    //run intake motor and then turn it off
+                    .UNSTABLE_addTemporalMarkerOffset(0,()->{
+                      intake.setPower(.5);
+                    })
+                    .waitSeconds(1)
+                    .UNSTABLE_addTemporalMarkerOffset(0,()->{
+                        intake.setPower(0);
+                    })
+                    //move to positions 4-8
                     .lineTo(new Vector2d(x4, y4))
                     .lineToLinearHeading(new Pose2d(x5, y5, Math.toRadians(heading5)))
                     .lineToLinearHeading(new Pose2d(x6, y6, Math.toRadians(heading6)))

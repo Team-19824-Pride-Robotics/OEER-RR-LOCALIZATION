@@ -20,25 +20,25 @@ public class PracticeAuto extends LinearOpMode {
 
     public static double turn = 90;
     //first point
-    public static double x1 = 30;
+    public static double x1 = 25;
     public static double y1 = -.5;
     //second point
     public static double x2 = 40;
     public static double y2 = -20;
     public static double heading2 = 0;
     //third point
-    public static double x3 = 115;
+    public static double x3 = 70;
     public static double y3 = -20;
     public static double heading3 = 0;
     //fourth point
-    public static double x4 = 115;
-    public static double y4 = 0;
+    public static double x4 = 70;
+    public static double y4 = 20;
     //fifth point
-    public static double x5 = 80;
+    public static double x5 = 50;
     public static double y5 = 0;
     public static double heading5 = 180;
     //sixth point
-    public static double x6 = 80;
+    public static double x6 = 50;
     public static double y6 = 10;
     public static double heading6 = 0;
     //seventh point
@@ -70,9 +70,9 @@ public class PracticeAuto extends LinearOpMode {
             TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
 
                     .forward(x1)
-                    .splineTo(new Vector2d(x2,y2), Math.toRadians(0))
+                    .splineToConstantHeading(new Vector2d(x2,y2), Math.toRadians(0))
                     .forward(x3)
-                    .strafeLeft(x4)
+                    .strafeLeft(y4)
                     .lineToLinearHeading(new Pose2d(x5, y5, Math.toRadians(heading5)))
                     .back(x4)
                     .forward(x5)
